@@ -12,7 +12,7 @@ g = generator_192
 n = g.order()
 
 
-class Challenge():
+class Challenge:
     def __init__(self):
         self.before_input = "Welcome to ProSign 3. You can sign_time or verify.\n"
         secret = randrange(1, n)
@@ -49,17 +49,17 @@ class Challenge():
     # encoded
     #
     def challenge(self, your_input):
-        if 'option' not in your_input:
+        if "option" not in your_input:
             return {"error": "You must send an option to this server"}
 
-        elif your_input['option'] == 'sign_time':
+        elif your_input["option"] == "sign_time":
             signature = self.sign_time()
             return signature
 
-        elif your_input['option'] == 'verify':
-            msg = your_input['msg']
-            r = your_input['r']
-            s = your_input['s']
+        elif your_input["option"] == "verify":
+            msg = your_input["msg"]
+            r = your_input["r"]
+            s = your_input["s"]
             verified = self.verify(msg, r, s)
             if verified:
                 if msg == "unlock":
@@ -73,5 +73,7 @@ class Challenge():
             return {"error": "Decoding fail"}
 
 
-import builtins; builtins.Challenge = Challenge # hack to enable challenge to be run locally, see https://cryptohack.org/faq/#netcat
+import builtins
+
+builtins.Challenge = Challenge  # hack to enable challenge to be run locally, see https://cryptohack.org/faq/#netcat
 listener.start_server(port=13381)
