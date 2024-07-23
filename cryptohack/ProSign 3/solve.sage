@@ -1,3 +1,27 @@
+# Let p be a prime and let E be an elliptic curve on a filed K=GF(p), let G be the generator point, let q be the order of G. If Alice is a person who wants to sign a message and Bob wants to check if a message was signed by Alice, ECDSA works as follows:
+# Key generation:
+# 1. Alice chooses a random integer d in the range [1, q-1], the integer d is the private key of Alice
+# 2. Alice computes the point A = dG, the point A is the public key of Alice
+# Signature:
+# 1. Alice wants to sign a message m
+# 2. Alice chooses a random integer k in the range [1, q-1]
+# 3. Alice computes the point kG = (x, y) and the integer r = x mod q
+# 4. Alice computes the integer z = H(m) where H is a hash function
+# 5. Alice computes the integer s = k^(-1)(z + d*r) mod q
+# 6. Alice sends the pair (r, s) to Bob
+# Verification:
+# 1. Bob wants to verify the signature (r, s) of the message m
+# 2. Bob computes the integer z = H(m)
+# 3. Bob computes the integer u = z s^(-1) mod q and the integer v = r s^(-1) mod q
+# 4. Bob computes the point uG + vA = (x, y)
+# 5. If the point is the point at infinity, the signature is invalid. Otherwise, the signature is valid if r = x mod q
+#
+# In this challenge we have a way to guess k and we can get the signature (r1, s1) of a known message m1, we will recover the private key d of Alice.
+# We will use the following formula to recover the private key d:
+# d = (k s1 - z1) r1^(-1) mod q
+# This formula is derived from the formula s = k^(-1)(z + d*r) mod q and it holds for the signature (r1, s1) of the message m1. Now that we recovered the private key d, we can sign whatever message m2, that in our case will be "unlock", and get a signature (r2, s2) as we were Alice.
+
+
 from hashlib import sha1
 import json
 from datetime import datetime
@@ -40,8 +64,7 @@ msg = "unlock"
 hsh = sha1(msg.encode()).digest()
 z2 = R(bytes_to_long(hsh))
 
-for i in range(1, 60):
-    k = i
+for k in range(1, 60):
     d = (k * s1 - z1) * r1 ^ (-1)
 
     r2 = R((k * G).xy()[0])
