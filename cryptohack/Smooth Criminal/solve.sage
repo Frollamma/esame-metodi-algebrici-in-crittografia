@@ -25,6 +25,9 @@ a = 2
 b = 3
 
 E = EllipticCurve(GF(p), [a, b])
+print(f"Factorization of the order of the elliptic curve: {factor(E.order())}")
+# Factorization of the order of the elliptic curve: 2^2 * 3^7 * 139 * 165229 * 31850531 * 270778799 * 179317983307
+# The order of E can be factored into a product of powers of small primes and we know that this curve is vulnerable to Pohlig-Hellman attack
 
 G_x = 179210853392303317793440285562762725654
 G_y = 105268671499942631758568591033409611165
@@ -37,7 +40,8 @@ B = E(B_x, B_y)
 Q_A = E(280810182131414898730378982766101210916, 291506490768054478159835604632710368904)
 
 # Calculate discrete logarithm of Q_A to the base G
-n_A = G.discrete_log(Q_A)
+n_A = Q_A.log(G)
+
 S = n_A * B
 shared_secret = S[0]
 
