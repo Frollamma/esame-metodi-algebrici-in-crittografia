@@ -3,11 +3,6 @@ from Crypto.Util.Padding import pad
 import hashlib
 import os
 
-def gen_shared_secret(Q: tuple, n: int):
-    # Bob's Public key, my secret int
-    S = double_and_add(Q, n)
-    return S.x
-
 def decrypt_flag(shared_secret: int, iv: str, ciphertext: str):
     # Derive AES key from shared secret
     sha1 = hashlib.sha1()
