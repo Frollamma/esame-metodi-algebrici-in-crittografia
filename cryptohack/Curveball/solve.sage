@@ -16,7 +16,8 @@ P = E(
 )
 d = 2
 
-# Find inverse of d modulo order of E
+# Check d is coprime with elliptic curve's order to find the inverse of d modulo order of E
+assert gcd(d, E.order()) == 1
 d_inv = inverse_mod(d, E.order())
 
 R = d_inv * P
