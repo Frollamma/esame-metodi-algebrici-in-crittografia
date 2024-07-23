@@ -38,6 +38,3 @@ r.interactive()
 # Close the connection
 r.close()
 
-
-# Devi trovare un P ed m qualsiasi tali che R = mP con m != 1
-# Cosa puoi fare? Puoi calcolare P = m^(-1)R, dove m^(-1) è l'inverso moltiplicativo di m modulo l'ordine della curva (che è un parametro pubblico o alla  peggio lo trovi con sage credo).

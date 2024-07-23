@@ -1,3 +1,6 @@
+# We have to find P e d such that R = dP, where |d| != 1
+# You can simply calculate P = d^(-1)R, where d^(-1) is the inverse of d mod the order of the elliptic curve
+
 # Taken from https://neuromancer.sk/std/secg/secp256r1
 p = 0xFFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF
 K = GF(p)
